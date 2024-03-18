@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swiper demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+  <style>
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+    .swiper-wrapper {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+  }
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .disabled {
+        opacity: 0.5;
+    pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+        <div class="swiper-slide">Slide 4</div>
+        <div class="swiper-slide">Slide 5</div>
+        <div class="swiper-slide">Slide 6</div>
+        <div class="swiper-slide">Slide 7</div>
+        <div class="swiper-slide">Slide 8</div>
+        <div class="swiper-slide">Slide 9</div>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  
+    <script>
+      const slidesContainer = document.querySelector('.swiper-wrapper');
+      const slides = document.querySelectorAll('.swiper-slide');
+      const btnLeft = document.querySelector('.swiper-button-prev');
+      const btnRight = document.querySelector('.swiper-button-next');
+  
+      const slideWidth = slides[0].offsetWidth;
+      const slideCount = slides.length;
+      let currentIndex = 0;
+  
+      slidesContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+  
+      function handleNextOrPrevSlide(index) {
+        if (index < 0 || index >= slideCount) return;
+        slidesContainer.style.transform = `translateX(-${index * slideWidth}px)`;
+        currentIndex = index;
+        if (currentIndex === 0) {
+          btnLeft.classList.add('disabled');
+        } else {
+          btnLeft.classList.remove('disabled');
+        }
+  
+        if (currentIndex === slideCount - 1) {
+          btnRight.classList.add('disabled');
+        } else {
+          btnRight.classList.remove('disabled');
+        }
+      }
+  
+      btnLeft.addEventListener('click', function() {
+        handleNextOrPrevSlide(currentIndex - 1);
+      });
+  
+      btnRight.addEventListener('click', function() {
+        handleNextOrPrevSlide(currentIndex + 1);
+      });
+      if (currentIndex === 0) {
+      btnLeft.classList.add('disabled');
+    }
+    if (currentIndex === slideCount - 1) {
+      btnRight.classList.add('disabled');
+    }
+    </script>
+  </body>
+
+</html>
