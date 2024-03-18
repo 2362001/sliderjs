@@ -106,6 +106,24 @@
       btnRight.addEventListener('click', function() {
         handleNextOrPrevSlide(currentIndex + 1);
       });
+
+      slidesContainer.addEventListener('touchstart', function (event) {
+      touchStartX = event.touches[0].clientX;
+    });
+
+    slidesContainer.addEventListener('touchmove', function (event) {
+      touchEndX = event.touches[0].clientX;
+    });
+
+    slidesContainer.addEventListener('touchend', function () {
+      const touchDiff = touchStartX - touchEndX;
+      if (touchDiff > 50) {
+        handleNextOrPrevSlide(currentIndex + 1);
+      } else if (touchDiff < -50) {
+        handleNextOrPrevSlide(currentIndex - 1);
+      }
+    });
+    
       if (currentIndex === 0) {
       btnLeft.classList.add('disabled');
     }
